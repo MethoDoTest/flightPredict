@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class FlightPrice(models.Model):
+class FlightPredictionModel(models.Model):
     airline = models.CharField(max_length=100)
     source = models.CharField(max_length=100)
     destination = models.CharField(max_length=100)
@@ -21,5 +21,5 @@ class FlightPrice(models.Model):
         return f"{self.date}/{self.month}/{self.year} | {self.airline} | {self.source} to {self.destination} | {self.price}"
 
     class Meta:
-        verbose_name = "Flight Price"
-        verbose_name_plural = "Flight Prices"
+        verbose_name = "Flight Prediction"
+        verbose_name_plural = "Flight Prediction"
