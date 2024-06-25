@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import TravelForm
+import requests
 
 def travel_view(request):
     result = None
@@ -10,7 +11,18 @@ def travel_view(request):
             if form.is_valid():
                 departure = form.cleaned_data['departure']
                 destination = form.cleaned_data['destination']
-                result = 'result' # affichage du résultat prédit 
+
+                api_url = 'http://votre_api_url/api_endpoint/'  # remplacer par l'url de l'api !
+                data = {
+                    'departure': departure,
+                    'destination': destination
+                }
+                try:
+                    response = requests.post(api_url, json=data)
+                    response.raise_for_status()
+                    result = response.json().get('result', 'Aucun résultat trouvé')  # à modifier !
+                except requests.RequestException as e:
+                    errors = f"Erreur lors de l'appel à l'API: {e}"
             else:
                 errors = form.errors
         elif 'clear' in request.POST:
