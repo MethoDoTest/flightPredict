@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>travel form</title>
+    <title>Flight Predict</title>
 </head>
 <body>
-    <h1>entrer les lieux de départ et de destination</h1>
+    <h1>Entrez votre aéroport de départ ainsi que celui de destination:</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">soumettre</button>
+        <button type="submit" name="submit">soumettre</button>
+        <button type="submit" name="clear">clear</button>
     </form>
+    {% if result %}
+        <p id="result">{{ result }}</p>
+    {% endif %}
 </body>
 </html>
