@@ -13,7 +13,9 @@ def travel_view(request):
                 departure = form.cleaned_data["departure"]
                 destination = form.cleaned_data["destination"]
 
-                api_url = "http://votre_api_url/api_endpoint/"  # remplacer par l'url de l'api !
+                api_url = (
+                    "http://127.0.0.1:8000/travel/"  # remplacer par l'url de l'api !
+                )
                 data = {"departure": departure, "destination": destination}
                 try:
                     response = requests.post(api_url, json=data)
