@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>travel form</title>
+</head>
+<body>
+    <h1>entrer les lieux de départ et de destination</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">soumettre</button>
+    </form>
+</body>
+</html>
