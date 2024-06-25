@@ -2,12 +2,47 @@
 <html>
 <head>
     <title>Flight Predict</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/styles.css">
+    <script>
+        function showError(message) {
+            alert(message);
+        }
+
+        window.onload = function() {
+            var errors = {{ errors|safe }};
+            if (errors) {
+                var errorMessages = '';
+                for (var field in errors) {
+                    if (errors.hasOwnProperty(field)) {
+                        errorMessages += errors[field] + '\n';
+                    }
+                }
+                showError(errorMessages);
+            }
+        };
+    </script>
 </head>
 <body>
     <h1>Entrez votre aéroport de départ ainsi que celui de destination:</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div>
+            {{ form.departure.label_tag }}
+            {{ form.departure }}
+        </div>
+        <div>
+            {{ form.destination.label_tag }}
+            {{ form.destination }}
+        </div>
+        <div>
+            {% if form.departure.errors %}
+            <div class="error">{{ form.departure.errors }}</div>
+            {% endif %}
+    
+            {% if form.destination.errors %}
+            <div class="error">{{ form.destination.errors }}</div>
+            {% endif %} 
+        </div>
         <button type="submit" name="submit">soumettre</button>
         <button type="submit" name="clear">clear</button>
     </form>
