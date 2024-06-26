@@ -1,7 +1,7 @@
 from EDA import load_data, show_basic_info, plot_histogram, plot_boxplot, analyze_missing_values, generate_feature_report, plot_correlation_matrix, plot_pairplot, plot_scatter, create_new_features
 
 def main():
-    # Chemin vers votre fichier CSV
+    
     csv_path = r'C:\Users\gchupe\flightPredict\dataset\rawData\flight_dataset.csv'
     
     # Charger les données
