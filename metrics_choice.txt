@@ -1,0 +1,9 @@
+Voici la liste des 4 métrique retenu :
+
+Erreur Quadratique Moyenne (MSE - Mean Squared Error) : Cette métrique calcule le carré de la différence entre les valeurs prédites et les valeurs réelles, puis en fait la moyenne sur l'ensemble des prédictions. Elle est très utilisée pour quantifier l'erreur d'un modèle dans des tâches de régression.
+
+Erreur Absolue Moyenne (MAE - Mean Absolute Error) : Le MAE mesure la moyenne des valeurs absolues des erreurs entre les prédictions et les vraies valeurs. Cette métrique est moins sensible aux valeurs aberrantes que le MSE et donne une meilleure idée des erreurs typiques.
+
+Erreur Quadratique Moyenne Racine (RMSE - Root Mean Squared Error) : C'est la racine carrée du MSE. Le RMSE est interprétable dans les mêmes unités que les valeurs cibles (ici, le prix des billets) et est sensible aux erreurs importantes à cause de la mise au carré des différences.
+
+Coefficient de Détermination (R² Score) : Le score R² indique la proportion de la variance dans la variable dépendante qui est prévisible à partir des variables indépendantes. Un R² de 1 indique une prédiction parfaite, tandis qu'un R² de 0 indique que le modèle ne fait pas mieux que de prédire la moyenne des valeurs cibles.
