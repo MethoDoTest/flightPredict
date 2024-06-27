@@ -108,8 +108,8 @@ types_attendus = {
     'Duration_min': 'int64',
 }
 # Charger le dataset
-chemin_fichier = '../dataset/rawData/flight_dataset.csv'
 
+chemin_fichier = '../dataset/rawData/flight_dataset.csv'
 
 df = pd.read_csv(chemin_fichier)
 
