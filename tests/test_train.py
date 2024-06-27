@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 
 from train import train
 
@@ -22,10 +22,15 @@ df = pd.DataFrame({
 target = pd.Series(100)
 
 
-def test_train_model_not_allowed(data_x=df, data_y=target, model="test"):
-    with pytest.raises(TypeError):
+def test_train_wrong_model_name(data_x=df, data_y=target, model="test"):
+    with pytest.raises(ValueError):
         train.train_model(data_x=data_x, data_y=data_y, model=model)
 
 
-def test_train_return_model(data_x=df, data_y=target, model=LinearRegression()):
-    assert isinstance(train.train_model(data_x=data_x, data_y=data_y, model=model), type(model))
+def test_train_return_model(data_x=df, data_y=target, model="linreg"):
+    assert isinstance(train.train_model(data_x=data_x, data_y=data_y, model=model), type(LinearRegression()))
+
+
+def test_train_model_not_allowed(data_x=df, data_y=target, model=LogisticRegression):
+    with pytest.raises(ValueError):
+        train.train_model(data_x=data_x, data_y=data_y, model=model)

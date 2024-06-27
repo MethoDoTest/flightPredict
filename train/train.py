@@ -7,7 +7,7 @@ ranfor = RandomForestRegressor()
 ransac = RANSACRegressor()
 
 
-def train_model(data_x, data_y, model=linreg):
+def train_model(data_x, data_y, model="linreg"):
     """
     Function to use to fit a model with a training dataset
     -------------
@@ -15,8 +15,9 @@ def train_model(data_x, data_y, model=linreg):
     -------------
     @params data_x pandas.DataFrame: dataset for training, in pandas dataframe format
     @params data_y pandas.Series: target data of the regressor, in pandas Series format
-    @params model sklearn object: model to train, in sklearn model object format.
-        Value can ONLY be one of the nexts variables : ransac, ranfor, linreg. Default = linreg
+    @params model string: model to train, in string format. linreg is for LinearRegression,
+        ransac is for RANSAC, and ranfor is for RandomForestRegressor. Value can ONLY be one of
+        the nexts variables : ransac, ranfor, linreg. Default = linreg
 
     -------------
     Return
@@ -24,9 +25,16 @@ def train_model(data_x, data_y, model=linreg):
     model sklearn object : the fitted model
     """
 
-    model = model
-    if type(model) not in [type(LinearRegression()), type(RANSACRegressor()), type(RandomForestRegressor())]:
-        raise TypeError("Model can only be instance of RANSACRegressor, RandomForestRegressor or LinearRegression")
+    match model:
+        case "linreg":
+            model = linreg
+        case "ransac":
+            model = ransac
+        case "ranfor":
+            model = linreg
+        case _:
+            raise ValueError("You can only type 'ransac', 'linreg', or 'ranfor'.")
+
     if isinstance(type(model), type(RandomForestRegressor())):
         param_grid = {"criterion": ["squared_error", "absolute_error", "friedman_mse"],
                       "max_depth": [None, 20, 100, 500]}
