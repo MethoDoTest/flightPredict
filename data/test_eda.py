@@ -1,3 +1,7 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pytest
 
 from EDA import load_data, show_basic_info, plot_histogram, plot_boxplot
 
