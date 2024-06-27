@@ -1,9 +1,3 @@
-import pandas as pd
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-
 
 def load_data(file_path):
     """Charge le fichier CSV dans un DataFrame Pandas."""

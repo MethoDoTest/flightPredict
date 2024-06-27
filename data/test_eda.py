@@ -1,5 +1,4 @@
-import pytest
-import pandas as pd
+
 from EDA import load_data, show_basic_info, plot_histogram, plot_boxplot
 
 @pytest.fixture
@@ -17,7 +16,7 @@ def sample_data():
     return pd.DataFrame(data)
 
 def test_load_data():
-    df = load_data('C:\\Users\\gchupe\\flightPredict\\dataset\\rawData\\flight_dataset.csv')
+    df = load_data('dataset\rawData\flight_dataset.csv')
     assert isinstance(df, pd.DataFrame)
 
 def test_show_basic_info(sample_data, capsys):
