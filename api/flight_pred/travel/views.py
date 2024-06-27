@@ -8,7 +8,7 @@ import requests
 def travel_view(request):
     result = None
     errors = None
-    form = TravelForm()  # Assurez-vous que form est toujours défini
+    form = TravelForm()
 
     if request.method == "POST":
         if "submit" in request.POST:
@@ -27,25 +27,8 @@ def travel_view(request):
                 arrival_min = form.cleaned_data["arrival_min"]
                 duration_hours = form.cleaned_data["duration_hours"]
                 duration_min = form.cleaned_data["duration_min"]
-                api_url = (
-                    "http://127.0.0.1:8000/travel/"  # Remplacer par l'URL de l'API !
-                )
-                data = {"departure": departure, "destination": destination}
-                departure = form.cleaned_data["departure"]
-                destination = form.cleaned_data["destination"]
-                airline = form.cleaned_data["airline"]
-                total_stops = form.cleaned_data["total_stops"]
-                date = form.cleaned_data["date"]
-                month = form.cleaned_data["month"]
-                year = form.cleaned_data["year"]
-                dep_hours = form.cleaned_data["dep_hours"]
-                dep_min = form.cleaned_data["dep_min"]
-                arrival_hours = form.cleaned_data["arrival_hours"]
-                arrival_min = form.cleaned_data["arrival_min"]
-                duration_hours = form.cleaned_data["duration_hours"]
-                duration_min = form.cleaned_data["duration_min"]
 
-                "http://127.0.0.1:8000/travel/"  # remplacer par l'url de l'api !
+                api_url = "http://127.0.0.1:8000/travel/"
                 data = {
                     "departure": departure,
                     "destination": destination,
@@ -64,9 +47,10 @@ def travel_view(request):
                 try:
                     response = requests.post(api_url, json=data)
                     response.raise_for_status()
-                    result = response.json().get(
-                        "result", "Aucun résultat trouvé"
-                    )  # À modifier selon la réponse de votre API
+                    if response.status_code == 200:
+                        result = "RESULT"
+                    else:
+                        result = "L'appel à l'API n'a pas réussi comme prévu."
                 except requests.RequestException as e:
                     errors = f"Erreur lors de l'appel à l'API: {e}"
             else:

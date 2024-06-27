@@ -6,19 +6,23 @@
 
 .form-group {
     margin-bottom: 15px;
+    display: flex; 
+    align-items: center; 
 }
 
 .form-group label {
-    display: block;
+    display: inline-block;
     font-weight: bold;
     margin-bottom: 5px;
+    flex: 1; 
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     border: 2px solid rgb(65, 105, 225);
     border-radius: 5px;
     padding: 8px;
-    width: 300px;
+    flex: 2; 
     box-sizing: border-box;
 }
 
