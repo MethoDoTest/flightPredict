@@ -20,6 +20,18 @@
                 showError(errorMessages);
             }
         };
+
+        function retrainModel() {
+            var resultElement = document.getElementById('result');
+            if (resultElement) {
+                resultElement.textContent = 'demande de réentraînement du modèle';
+            } else {
+                var newResultElement = document.createElement('p');
+                newResultElement.id = 'result';
+                newResultElement.textContent = 'demande de réentraînement du modèle';
+                document.body.appendChild(newResultElement);
+            }
+        }
     </script>
 </head>
 <body>
@@ -119,6 +131,7 @@
         </div>
         <button type="submit" name="submit" class="button">soumettre</button>
         <button type="submit" name="clear" class="button">clear</button>
+        <button type="button" name="retrain" class="button retrain-button" onclick="retrainModel()">Réentraîner le modèle</button>
     </form>
     
     {% if result %}
