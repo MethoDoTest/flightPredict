@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def valider_types_donnees(df, types_attendus):
     """
     Valide les types de données des colonnes du DataFrame.
@@ -27,6 +28,7 @@ def valider_types_donnees(df, types_attendus):
 
     return resultats_validation_types
 
+
 def valider_qualite_donnees(df):
     """
     Valide la qualité des données du DataFrame.
@@ -52,7 +54,8 @@ def valider_qualite_donnees(df):
 
     for colonne in colonnes_temps:
         if colonne in df.columns:
-            nombre_hors_plage = df[(df[colonne] < 0) | (df[colonne] >= 60 if 'min' in colonne else df[colonne] >= 24)][colonne].count()
+            nombre_hors_plage = df[(df[colonne] < 0) | (df[colonne] >= 60 if 'min' in colonne else df[colonne] >= 24)][
+                colonne].count()
             valeurs_hors_plage[colonne] = nombre_hors_plage
 
     return {
@@ -60,6 +63,7 @@ def valider_qualite_donnees(df):
         "valeurs_negatives": valeurs_negatives,
         "valeurs_hors_plage": valeurs_hors_plage
     }
+
 
 def pipeline_validation_donnees(df, types_attendus):
     """
@@ -89,6 +93,7 @@ def pipeline_validation_donnees(df, types_attendus):
     }
 
     return resultats_validation
+
 
 # Exemple d'utilisation
 types_attendus = {
@@ -126,10 +131,3 @@ print(resultats_validation['qualite_donnees']['valeurs_negatives'])
 
 print("\nRésultats de la qualité des données - Valeurs hors plage:")
 print(pd.DataFrame(resultats_validation['qualite_donnees']['valeurs_hors_plage'], index=[0]).transpose())
-
-
-
-
-
-
-

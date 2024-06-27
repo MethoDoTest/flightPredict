@@ -1,6 +1,9 @@
 import unittest
+
 import pandas as pd
+
 from validate_data_types import valider_types_donnees, valider_qualite_donnees, pipeline_validation_donnees
+
 
 class TestValidationDonnees(unittest.TestCase):
 
@@ -43,7 +46,8 @@ class TestValidationDonnees(unittest.TestCase):
     def test_valider_types_donnees(self):
         resultats = valider_types_donnees(self.df_valid, self.types_attendus)
         for colonne, resultat in resultats.items():
-            self.assertTrue(resultat['valid'], f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}")
+            self.assertTrue(resultat['valid'],
+                            f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}")
 
     def test_valider_qualite_donnees(self):
         resultats = valider_qualite_donnees(self.df_valid)
@@ -59,7 +63,8 @@ class TestValidationDonnees(unittest.TestCase):
     def test_pipeline_validation_donnees(self):
         resultats = pipeline_validation_donnees(self.df_valid, self.types_attendus)
         for colonne, resultat in resultats['validation_types'].items():
-            self.assertTrue(resultat['valid'], f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}")
+            self.assertTrue(resultat['valid'],
+                            f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}")
 
         for colonne, valeur in resultats['qualite_donnees']['valeurs_manquantes'].items():
             self.assertEqual(valeur, 0, f"Missing values found in column {colonne}")
@@ -70,6 +75,6 @@ class TestValidationDonnees(unittest.TestCase):
         for colonne, valeur in resultats['qualite_donnees']['valeurs_hors_plage'].items():
             self.assertEqual(valeur, 0, f"Out of range values found in column {colonne}")
 
+
 if __name__ == '__main__':
     unittest.main()
-
