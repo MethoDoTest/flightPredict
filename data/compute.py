@@ -1,7 +1,7 @@
 from EDA import load_data, show_basic_info, plot_histogram, plot_boxplot, analyze_missing_values, generate_feature_report, plot_correlation_matrix, plot_pairplot, plot_scatter, create_new_features
 
 def main():
-    
+
     csv_path = r'C:\Users\gchupe\flightPredict\dataset\rawData\flight_dataset.csv'
     
     # Charger les données
@@ -31,13 +31,13 @@ def main():
     print("\nAffichage de la matrice de corrélation :")
     plot_correlation_matrix(df)
 
-    # Afficher les relations entre plusieurs variables
-    print("\nAffichage des relations entre plusieurs variables :")
-    plot_pairplot(df)
+    # # Afficher les relations entre plusieurs variables
+    # print("\nAffichage des relations entre plusieurs variables :")
+    # plot_pairplot(df)
 
-    # Afficher un scatter plot pour 'Duration_hours' vs 'Price'
-    print("\nAffichage du scatter plot pour 'Duration_hours' vs 'Price' :")
-    plot_scatter(df, 'Duration_hours', 'Price')
+    # # Afficher un scatter plot pour 'Duration_hours' vs 'Price'
+    # print("\nAffichage du scatter plot pour 'Duration_hours' vs 'Price' :")
+    # plot_scatter(df, 'Duration_hours', 'Price')
 
     # Créer de nouvelles caractéristiques
     print("\nCréation de nouvelles caractéristiques :")
