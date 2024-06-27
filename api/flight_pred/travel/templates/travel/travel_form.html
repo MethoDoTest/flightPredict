@@ -23,15 +23,7 @@
         };
 
         function retrainModel() {
-            var resultElement = document.getElementById('result');
-            if (resultElement) {
-                resultElement.textContent = 'demande de réentraînement du modèle';
-            } else {
-                var newResultElement = document.createElement('p');
-                newResultElement.id = 'result';
-                newResultElement.textContent = 'demande de réentraînement du modèle';
-                document.body.appendChild(newResultElement);
-            }
+            window.location.href = "{% url 'retrain_model_view' %}";
         }
     </script>
 </head>
