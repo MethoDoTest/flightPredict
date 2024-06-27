@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .forms import TravelForm
@@ -28,7 +29,7 @@ def travel_view(request):
                 duration_hours = form.cleaned_data["duration_hours"]
                 duration_min = form.cleaned_data["duration_min"]
 
-                api_url = "http://127.0.0.1:8000/travel/"
+                api_url = "http://127.0.0.1:8000/travel/travel"
                 data = {
                     "departure": departure,
                     "destination": destination,
@@ -45,18 +46,27 @@ def travel_view(request):
                     "duration_min": duration_min,
                 }
                 try:
-                    response = requests.post(api_url, json=data)
+                    response = requests.post(
+                        api_url, json=data, headers={"Content-Type": "application/json"}
+                    )
                     response.raise_for_status()
                     if response.status_code == 200:
-                        result = "RESULT"
+                        result = "result"
                     else:
                         result = "L'appel à l'API n'a pas réussi comme prévu."
                 except requests.RequestException as e:
                     errors = f"Erreur lors de l'appel à l'API: {e}"
             else:
                 errors = form.errors
+
+            # Vérifiez si la requête demande une réponse JSON
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return JsonResponse({"result": result, "errors": errors})
+
         elif "clear" in request.POST:
             form = TravelForm()
+
+    print(result)
 
     return render(
         request,
