@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import TravelForm
 import requests
 
+
 @csrf_exempt
 def travel_view(request):
     result = None
@@ -29,7 +30,7 @@ def travel_view(request):
                 duration_hours = form.cleaned_data["duration_hours"]
                 duration_min = form.cleaned_data["duration_min"]
 
-                api_url = "http://127.0.0.1:8000/travel/travel"
+                api_url = "http://127.0.0.1:8000/travel/travel_view"
                 data = {
                     "departure": departure,
                     "destination": destination,
@@ -73,5 +74,7 @@ def travel_view(request):
         "travel/travel_form.html",
         {"form": form, "result": result, "errors": errors},
     )
+
+
 def retrain_model_view(request):
     return render(request, "travel/retrain_model.html")
