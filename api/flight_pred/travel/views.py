@@ -46,12 +46,10 @@ def travel_view(request):
                     "duration_min": duration_min,
                 }
                 try:
-                    response = requests.post(
-                        api_url, json=data, headers={"Content-Type": "application/json"}
-                    )
+                    response = requests.post(api_url, json=data)
                     response.raise_for_status()
                     if response.status_code == 200:
-                        result = "result"
+                        result = response.json().get("result", "Aucun résultat trouvé")
                     else:
                         result = "L'appel à l'API n'a pas réussi comme prévu."
                 except requests.RequestException as e:
@@ -59,19 +57,21 @@ def travel_view(request):
             else:
                 errors = form.errors
 
+            # Debugging print statement
+            print("Result:", result)
+            print("Errors:", errors)
+
+            # Vérifiez si la requête demande une réponse JSON
             if request.headers.get("X-Requested-With") == "XMLHttpRequest":
                 return JsonResponse({"result": result, "errors": errors})
 
         elif "clear" in request.POST:
             form = TravelForm()
 
-    print(result)
-
     return render(
         request,
         "travel/travel_form.html",
         {"form": form, "result": result, "errors": errors},
     )
-
 def retrain_model_view(request):
     return render(request, "travel/retrain_model.html")
