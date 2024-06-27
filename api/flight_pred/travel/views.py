@@ -1,9 +1,9 @@
-from django.http import JsonResponse
+# views.py
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .forms import TravelForm
 import requests
-
 
 @csrf_exempt
 def travel_view(request):
@@ -73,3 +73,5 @@ def travel_view(request):
         {"form": form, "result": result, "errors": errors},
     )
 
+def retrain_model_view(request):
+    return render(request, "travel/retrain_model.html")
