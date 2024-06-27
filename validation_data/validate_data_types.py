@@ -108,7 +108,8 @@ types_attendus = {
     'Duration_min': 'int64',
 }
 # Charger le dataset
-chemin_fichier = 'C:/Users/bamba/OneDrive/Bureau/flightPredict/dataset/rawData/flight_dataset.csv'  # Mettre à jour ce chemin si nécessaire
+chemin_fichier = 'dataset/rawData/flight_dataset.csv'  # Mettre à jour ce chemin si nécessaire
+
 df = pd.read_csv(chemin_fichier)
 
 # Exécuter le pipeline de validation
