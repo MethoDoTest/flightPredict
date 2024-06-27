@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Flight Predict</title>
     <link rel="stylesheet" type="text/css" href="../../../static/styles.css">
@@ -8,8 +9,8 @@
             alert(message);
         }
 
-        window.onload = function() {
-            var errors = {{ errors|safe }};
+        window.onload = function () {
+            var errors = { error };
             if (errors) {
                 var errorMessages = '';
                 for (var field in errors) {
@@ -34,6 +35,7 @@
         }
     </script>
 </head>
+
 <body>
     <h1>Entrez votre aéroport de départ ainsi que celui de destination:</h1>
     <form method="post">
@@ -131,11 +133,13 @@
         </div>
         <button type="submit" name="submit" class="button">soumettre</button>
         <button type="submit" name="clear" class="button">clear</button>
-        <button type="button" name="retrain" class="button retrain-button" onclick="retrainModel()">Réentraîner le modèle</button>
+        <button type="button" name="retrain" class="button retrain-button" onclick="retrainModel()">Réentraîner le
+            modèle</button>
     </form>
-    
+
     {% if result %}
-        <p id="result">{{ result }}</p>
+    <p id="result">{{ result }}</p>
     {% endif %}
 </body>
+
 </html>
