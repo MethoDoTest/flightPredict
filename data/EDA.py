@@ -46,7 +46,7 @@ def generate_feature_report(df):
     """Génère un rapport sur les nouvelles caractéristiques potentielles."""
     print("Analyse des caractéristiques existantes pour le feature engineering :")
     
-    # Exemple : Création de nouvelles caractéristiques à partir de 'Duration_hours' et 'Duration_min'
+    # Création de nouvelles caractéristiques à partir de 'Duration_hours' et 'Duration_min'
     df['Total_Duration_Minutes'] = df['Duration_hours'] * 60 + df['Duration_min']
     print("Nouvelle caractéristique 'Total_Duration_Minutes' créée.")
 
