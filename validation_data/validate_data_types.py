@@ -1,9 +1,5 @@
 import pandas as pd
 
-# df = pd.read_csv(file_path)
-
-import pandas as pd
-
 def valider_types_donnees(df, types_attendus):
     """
     Valide les types de données des colonnes du DataFrame.
@@ -15,6 +11,9 @@ def valider_types_donnees(df, types_attendus):
     Retourne:
     dict: Un dictionnaire avec les résultats de validation pour chaque colonne.
     """
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Les données doivent être un DataFrame")
+
     types_actuels = df.dtypes.to_dict()
     resultats_validation_types = {}
 
@@ -23,7 +22,7 @@ def valider_types_donnees(df, types_attendus):
         resultats_validation_types[colonne] = {
             "expected": type_attendu,
             "actual": str(type_actuel),
-            "valide": str(type_actuel) == type_attendu
+            "valid": str(type_actuel) == type_attendu
         }
 
     return resultats_validation_types
@@ -38,6 +37,9 @@ def valider_qualite_donnees(df):
     Retourne:
     dict: Un dictionnaire avec les valeurs manquantes, les valeurs négatives et les valeurs hors plage.
     """
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Les données doivent être un DataFrame")
+
     # Vérifier les valeurs manquantes
     valeurs_manquantes = df.isnull().sum()
 
@@ -71,6 +73,9 @@ def pipeline_validation_donnees(df, types_attendus):
     Retourne:
     dict: Un dictionnaire avec les résultats de tous les tests de validation.
     """
+    if not isinstance(df, pd.DataFrame):
+        raise ValueError("Les données doivent être un DataFrame")
+
     # Valider les types de données
     resultats_validation_types = valider_types_donnees(df, types_attendus)
 
@@ -102,7 +107,6 @@ types_attendus = {
     'Duration_hours': 'int64',
     'Duration_min': 'int64',
 }
-
 # Charger le dataset
 chemin_fichier = 'C:/Users/bamba/OneDrive/Bureau/flightPredict/dataset/rawData/flight_dataset.csv'  # Mettre à jour ce chemin si nécessaire
 df = pd.read_csv(chemin_fichier)
@@ -122,7 +126,6 @@ print(resultats_validation['qualite_donnees']['valeurs_negatives'])
 
 print("\nRésultats de la qualité des données - Valeurs hors plage:")
 print(pd.DataFrame(resultats_validation['qualite_donnees']['valeurs_hors_plage'], index=[0]).transpose())
-
 
 
 
