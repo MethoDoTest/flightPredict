@@ -16,7 +16,17 @@ def travel_view(request):
             if form.is_valid():
                 departure = form.cleaned_data["departure"]
                 destination = form.cleaned_data["destination"]
-
+                airline = form.cleaned_data["airline"]
+                total_stops = form.cleaned_data["total_stops"]
+                date = form.cleaned_data["date"]
+                month = form.cleaned_data["month"]
+                year = form.cleaned_data["year"]
+                dep_hours = form.cleaned_data["dep_hours"]
+                dep_min = form.cleaned_data["dep_min"]
+                arrival_hours = form.cleaned_data["arrival_hours"]
+                arrival_min = form.cleaned_data["arrival_min"]
+                duration_hours = form.cleaned_data["duration_hours"]
+                duration_min = form.cleaned_data["duration_min"]
                 api_url = (
                     "http://127.0.0.1:8000/travel/"  # Remplacer par l'URL de l'API !
                 )
