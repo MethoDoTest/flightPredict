@@ -30,7 +30,7 @@ def travel_view(request):
                 duration_hours = form.cleaned_data["duration_hours"]
                 duration_min = form.cleaned_data["duration_min"]
 
-                api_url = "http://127.0.0.1:8000/travel/travel_view"
+                api_url = "http://127.0.0.1:8000/travel/travel_view/"
                 data = {
                     "departure": departure,
                     "destination": destination,

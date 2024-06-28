@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+    <meta charset="UTF-8">
     <title>Flight Predict</title>
-    <link rel="stylesheet" type="text/css" href="../../../static/styles.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script>
         function showError(message) {
             alert(message);
@@ -29,109 +32,125 @@
 </head>
 
 <body>
-    <h1>Entrez votre aéroport de départ ainsi que celui de destination:</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            {{ form.departure.label_tag }}
-            {{ form.departure }}
-            {% if form.departure.errors %}
-            <div class="error">{{ form.departure.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.destination.label_tag }}
-            {{ form.destination }}
-            {% if form.destination.errors %}
-            <div class="error">{{ form.destination.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.airline.label_tag }}
-            {{ form.airline }}
-            {% if form.airline.errors %}
-            <div class="error">{{ form.airline.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.total_stops.label_tag }}
-            {{ form.total_stops }}
-            {% if form.total_stops.errors %}
-            <div class="error">{{ form.total_stops.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.date.label_tag }}
-            {{ form.date }}
-            {% if form.date.errors %}
-            <div class="error">{{ form.date.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.month.label_tag }}
-            {{ form.month }}
-            {% if form.month.errors %}
-            <div class="error">{{ form.month.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.year.label_tag }}
-            {{ form.year }}
-            {% if form.year.errors %}
-            <div class="error">{{ form.year.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.dep_hours.label_tag }}
-            {{ form.dep_hours }}
-            {% if form.dep_hours.errors %}
-            <div class="error">{{ form.dep_hours.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.dep_min.label_tag }}
-            {{ form.dep_min }}
-            {% if form.dep_min.errors %}
-            <div class="error">{{ form.dep_min.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.arrival_hours.label_tag }}
-            {{ form.arrival_hours }}
-            {% if form.arrival_hours.errors %}
-            <div class="error">{{ form.arrival_hours.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.arrival_min.label_tag }}
-            {{ form.arrival_min }}
-            {% if form.arrival_min.errors %}
-            <div class="error">{{ form.arrival_min.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.duration_hours.label_tag }}
-            {{ form.duration_hours }}
-            {% if form.duration_hours.errors %}
-            <div class="error">{{ form.duration_hours.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.duration_min.label_tag }}
-            {{ form.duration_min }}
-            {% if form.duration_min.errors %}
-            <div class="error">{{ form.duration_min.errors }}</div>
-            {% endif %}
-        </div>
-        <button type="submit" name="submit" class="button">soumettre</button>
-        <button type="submit" name="clear" class="button">clear</button>
-        <button type="button" name="retrain" class="button retrain-button" onclick="retrainModel()">Réentraîner le
-            modèle</button>
-    </form>
+    <div class="container">
+        <h1>Entrez votre aéroport de départ ainsi que celui de destination:</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.departure.label_tag }}
+                    {{ form.departure }}
+                    {% if form.departure.errors %}
+                    <div class="error">{{ form.departure.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group form-group-half">
+                    {{ form.destination.label_tag }}
+                    {{ form.destination }}
+                    {% if form.destination.errors %}
+                    <div class="error">{{ form.destination.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.airline.label_tag }}
+                    {{ form.airline }}
+                    {% if form.airline.errors %}
+                    <div class="error">{{ form.airline.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group form-group-half">
+                    {{ form.total_stops.label_tag }}
+                    {{ form.total_stops }}
+                    {% if form.total_stops.errors %}
+                    <div class="error">{{ form.total_stops.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.date.label_tag }}
+                    {{ form.date }}
+                    {% if form.date.errors %}
+                    <div class="error">{{ form.date.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group form-group-half">
+                    {{ form.month.label_tag }}
+                    {{ form.month }}
+                    {% if form.month.errors %}
+                    <div class="error">{{ form.month.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.year.label_tag }}
+                    {{ form.year }}
+                    {% if form.year.errors %}
+                    <div class="error">{{ form.year.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group form-group-half">
+                    {{ form.dep_hours.label_tag }}
+                    {{ form.dep_hours }}
+                    {% if form.dep_hours.errors %}
+                    <div class="error">{{ form.dep_hours.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.dep_min.label_tag }}
+                    {{ form.dep_min }}
+                    {% if form.dep_min.errors %}
+                    <div class="error">{{ form.dep_min.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group form-group-half">
+                    {{ form.arrival_hours.label_tag }}
+                    {{ form.arrival_hours }}
+                    {% if form.arrival_hours.errors %}
+                    <div class="error">{{ form.arrival_hours.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.arrival_min.label_tag }}
+                    {{ form.arrival_min }}
+                    {% if form.arrival_min.errors %}
+                    <div class="error">{{ form.arrival_min.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group form-group-half">
+                    {{ form.duration_hours.label_tag }}
+                    {{ form.duration_hours }}
+                    {% if form.duration_hours.errors %}
+                    <div class="error">{{ form.duration_hours.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group form-group-half">
+                    {{ form.duration_min.label_tag }}
+                    {{ form.duration_min }}
+                    {% if form.duration_min.errors %}
+                    <div class="error">{{ form.duration_min.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <button type="submit" name="submit" class="button"><i class="fas fa-paper-plane"></i> Soumettre</button>
+            <button type="submit" name="clear" class="button"><i class="fas fa-eraser"></i> Clear</button>
+            <button type="button" name="retrain" class="button retrain-button" onclick="retrainModel()"><i
+                    class="fas fa-sync-alt"></i> Réentraîner le modèle</button>
+        </form>
 
-    {% if result %}
-    <p id="result">{{ result }}</p>
-    {% endif %}
+        {% if result %}
+        <p id="result">{{ result }}</p>
+        {% endif %}
+    </div>
 </body>
 
 </html>
