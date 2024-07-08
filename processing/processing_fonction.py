@@ -20,6 +20,18 @@ def analyze_missing_values(df):
     else:
         print("Aucune valeur manquante détectée.")
 
+def impute_missing_values(df):
+    """Impute les valeurs manquantes avec la moyenne des colonnes."""
+    missing_values = df.isnull().sum()
+    if missing_values.any():
+        for col in df.columns:
+            if df[col].isnull().sum() > 0:
+                df[col].fillna(df[col].mean(), inplace=True)
+        print("Imputation des valeurs manquantes effectuée.")
+    else:
+        print("Aucune valeur manquante à imputer.")
+    return df
+
 def generate_feature_report(df):
     """Génère un rapport sur les nouvelles caractéristiques potentielles."""
     print("Analyse des caractéristiques existantes pour le feature engineering :")
