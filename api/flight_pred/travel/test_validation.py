@@ -103,7 +103,7 @@ def test_validate_table_wrong_columns():
         "Arrival_min": [45],
         "Duration_hours": [2],
         "Duration_min": [15],
-        "Extra_column": [0],  # This makes the column count 15
+        "Extra_column": [0],  
     }
 
     df = pd.DataFrame(data)

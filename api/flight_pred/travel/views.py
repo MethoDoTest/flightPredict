@@ -58,11 +58,9 @@ def travel_view(request):
             else:
                 errors = form.errors
 
-            # Debugging print statement
             print("Result:", result)
             print("Errors:", errors)
 
-            # Vérifiez si la requête demande une réponse JSON
             if request.headers.get("X-Requested-With") == "XMLHttpRequest":
                 return JsonResponse({"result": result, "errors": errors})
 
