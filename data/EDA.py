@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pytest
 
 def load_data(file_path):
     """Charge le fichier CSV dans un DataFrame Pandas."""
@@ -76,11 +75,48 @@ def plot_scatter(df, x_column, y_column):
 
 def create_new_features(df):
     """Crée de nouvelles caractéristiques basées sur les données existantes."""
-    # Exemple : Combiner 'Date', 'Month' et 'Year' en une seule colonne 'Flight_Date'
-    df['Flight_Date'] = pd.to_datetime(df[['Year', 'Month', 'Date']])
+    # Renommer la colonne 'Date' en 'Day'
+    df = df.rename(columns={'Date': 'Day'})
     
-    # Exemple : Extract Day of the Week from 'Flight_Date'
+    # Combiner 'Day', 'Month' et 'Year' en une seule colonne 'Flight_Date'
+    df['Flight_Date'] = pd.to_datetime(df[['Year', 'Month', 'Day']])
+    
+    # Extraire le jour de la semaine de 'Flight_Date'
     df['Day_of_Week'] = df['Flight_Date'].dt.day_name()
     
-    print("Nouvelles caractéristiques créées : 'Flight_Date' et 'Day_of_Week'")
+    # Extraire la saison du 'Flight_Date'
+    df['Season'] = df['Flight_Date'].apply(lambda x: (x.month%12 + 3)//3)
+    df['Season'] = df['Season'].replace({1: 'Winter', 2: 'Spring', 3: 'Summer', 4: 'Fall'})
+
+    # Identifier les périodes de vacances
+    df['Is_Holiday'] = df['Flight_Date'].apply(is_holiday)
+
+    print("Nouvelles caractéristiques créées : 'Flight_Date', 'Day_of_Week', 'Season' et 'Is_Holiday'")
     return df
+
+def is_holiday(date):
+    """Détermine si une date donnée est une période de vacances."""
+    # Exemple de périodes de vacances
+    holidays = [
+        (pd.Timestamp(date.year, 12, 20), pd.Timestamp(date.year, 12, 31)), # Vacances de Noël
+        (pd.Timestamp(date.year, 7, 1), pd.Timestamp(date.year, 8, 31)),    # Vacances d'été
+        (pd.Timestamp(date.year, 4, 1), pd.Timestamp(date.year, 4, 15))     # Vacances de printemps
+    ]
+    return any(start <= date <= end for start, end in holidays)
+
+def plot_price_vs_date_features(df):
+    """Affiche les relations entre les prix et les nouvelles caractéristiques de date."""
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='Season', y='Price', data=df)
+    plt.title('Prix des vols par saison')
+    plt.show()
+
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='Day_of_Week', y='Price', data=df)
+    plt.title('Prix des vols par jour de la semaine')
+    plt.show()
+
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='Is_Holiday', y='Price', data=df)
+    plt.title('Prix des vols pendant les périodes de vacances')
+    plt.show()
