@@ -1,8 +1,9 @@
 # views.py
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .forms import TravelForm
+from django.shortcuts import render, redirect
+import subprocess
 import requests
 
 
@@ -74,5 +75,14 @@ def travel_view(request):
     )
 
 
+
+
 def retrain_model_view(request):
+    if request.method == 'POST':
+        subprocess.call(['python', 'travel/../../../train/train.py'])
+        return redirect('success_view')
     return render(request, "travel/retrain_model.html")
+
+def success_view(request):
+    return render(request, "travel/success.html")
+

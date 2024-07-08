@@ -6,7 +6,8 @@
 </head>
 <body>
     <h1>Réentraîner le modèle</h1>
-    <form>
+    <form method="post" action="{% url 'retrain_model_view' %}">
+        {% csrf_token %}
         <button type="button" class="button" onclick="goToTravelView()">retour</button>
         <button type="submit" class="button" onclick="showLoadingMessage()">ré-entrainer le modèle</button>
         <div id="loading-message" style="display: none;">modèle en cours d'entrainement</div>
@@ -16,10 +17,6 @@
         function showLoadingMessage() {
             var message = document.getElementById("loading-message");
             message.style.display = "block";
-            
-            setTimeout(function() {
-                message.style.display = "none";
-            }, 100000); 
         }
 
         function goToTravelView() {
