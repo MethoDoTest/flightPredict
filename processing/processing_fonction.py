@@ -69,6 +69,7 @@ def preprocess_data(df):
     df = create_new_features(df)  # Créer les nouvelles caractéristiques
     df = encode_categorical_variables(df)  # Encoder les variables catégorielles
     df = impute_missing_values(df)  # Imputer les valeurs manquantes
-    X = df.drop(columns=['Price', 'Flight_Date', 'Is_Holiday'])
-    y = df['Price']
-    return X, y
+
+    # X = df.drop(columns=['Price', 'Flight_Date', 'Is_Holiday'])
+    # y = df['Price']
+    # return X, y
