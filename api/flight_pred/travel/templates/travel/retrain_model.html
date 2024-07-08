@@ -7,9 +7,9 @@
 <body>
     <h1>Réentraîner le modèle</h1>
     <form>
-        <button type="button" class="button">retour</button>
+        <button type="button" class="button" onclick="goToTravelView()">retour</button>
         <button type="submit" class="button" onclick="showLoadingMessage()">ré-entrainer le modèle</button>
-        <div id="loading-message">modèle en cours d'entrainement</div>
+        <div id="loading-message" style="display: none;">modèle en cours d'entrainement</div>
     </form>
 
     <script>
@@ -21,10 +21,10 @@
                 message.style.display = "none";
             }, 100000); 
         }
+
+        function goToTravelView() {
+            window.location.href = "{% url 'travel_view' %}";
+        }
     </script>
 </body>
 </html>
-
-
-
-        
