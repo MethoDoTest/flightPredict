@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Réentraîner le modèle</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/styles.css">
+</head>
+<body>
+    <h1>Réentraîner le modèle</h1>
+    <form method="post" action="{% url 'retrain_model_view' %}">
+        {% csrf_token %}
+        <button type="button" class="button" onclick="goToTravelView()">retour</button>
+        <button type="submit" class="button" onclick="showLoadingMessage()">ré-entrainer le modèle</button>
+        <div id="loading-message" style="display: none;">modèle en cours d'entrainement</div>
+    </form>
+
+    <script>
+        function showLoadingMessage() {
+            var message = document.getElementById("loading-message");
+            message.style.display = "block";
+        }
+
+        function goToTravelView() {
+            window.location.href = "{% url 'travel_view' %}";
+        }
+    </script>
+</body>
+</html>
