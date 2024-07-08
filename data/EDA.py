@@ -54,7 +54,7 @@ def generate_feature_report(df):
 
 def plot_correlation_matrix(df):
     """Affiche la matrice de corrélation du DataFrame."""
-    correlation_matrix = df.corr()
+    correlation_matrix = df.corr(numeric_only=True)
     plt.figure(figsize=(12, 8))
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
     plt.title('Matrice de corrélation')

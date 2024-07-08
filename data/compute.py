@@ -2,7 +2,7 @@ from EDA import load_data, show_basic_info, plot_histogram, plot_boxplot, analyz
 
 def main():
 
-    csv_path = r'dataset\rawData\flight_dataset.csv'
+    csv_path = './dataset/rawData/flight_dataset.csv'
     
     # Charger les données
     df = load_data(csv_path)
