@@ -15,13 +15,13 @@ def main():
     generate_feature_report(df)
 
     # Prétraitement des données
-    X, y = preprocess_data(df)
+    preprocess_data(df)
 
     # Affichage des premières lignes pour vérifier
     print("Training Features DataFrame:")
-    print(X.head())
+    #print(X.head())
     print("\nTarget Series:")
-    print(y.head())
+    #print(y.head())
 
 if __name__ == "__main__":
     main()
