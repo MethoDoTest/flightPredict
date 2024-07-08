@@ -58,10 +58,17 @@ def is_holiday(date):
     ]
     return any(start <= date <= end for start, end in holidays)
 
-def preprocess_data(df):
-    """Prépare les données pour l'entraînement."""
+def encode_categorical_variables(df):
+    """Encode les variables catégorielles."""
     categorical_cols = ['Airline', 'Source', 'Destination', 'Day_of_Week', 'Season']
     df_encoded = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-    X = df_encoded.drop(columns=['Price', 'Flight_Date', 'Is_Holiday'])
-    y = df_encoded['Price']
+    return df_encoded
+
+def preprocess_data(df):
+    """Prépare les données pour l'entraînement."""
+    df = create_new_features(df)  # Créer les nouvelles caractéristiques
+    df = encode_categorical_variables(df)  # Encoder les variables catégorielles
+    df = impute_missing_values(df)  # Imputer les valeurs manquantes
+    X = df.drop(columns=['Price', 'Flight_Date', 'Is_Holiday'])
+    y = df['Price']
     return X, y
