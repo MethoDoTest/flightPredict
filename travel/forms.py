@@ -5,11 +5,12 @@ from .validation import (
     validate_airline,
     validate_source_destination,
     validate_total_stops,
-    validate_price, # a utiliser pour le résultat
+    validate_price,  # a utiliser pour le résultat
     validate_date,
     validate_time,
     validate_duration
 )
+
 
 class TravelForm(forms.Form):
     departure = forms.CharField(label='depart', max_length=100, required=True)
@@ -123,7 +124,8 @@ class TravelForm(forms.Form):
         arrival_hours = cleaned_data.get('arrival_hours')
         arrival_min = cleaned_data.get('arrival_min')
         if (dep_hours is not None and dep_min is not None and not validate_time(dep_hours, dep_min)) or \
-           (arrival_hours is not None and arrival_min is not None and not validate_time(arrival_hours, arrival_min)):
+                (arrival_hours is not None and arrival_min is not None and not validate_time(arrival_hours,
+                                                                                             arrival_min)):
             raise forms.ValidationError('Les heures et minutes de départ et d\'arrivée doivent être valides.')
         duration_hours = cleaned_data.get('duration_hours')
         duration_min = cleaned_data.get('duration_min')
