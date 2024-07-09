@@ -1,9 +1,8 @@
-import pandas as pd
+from codecarbon import EmissionsTracker
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from carbon_emission import calculate_training_emissions, calculate_inference_emissions, print_emission_comparison
+from codecarbon import EmissionsTracker
 
 # Charger le dataset Iris
 iris = load_iris()
@@ -11,6 +10,7 @@ X, y = iris.data, iris.target
 
 # Séparer les données en train et test
 from sklearn.model_selection import train_test_split
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Entraîner un modèle de base (RandomForestClassifier)
