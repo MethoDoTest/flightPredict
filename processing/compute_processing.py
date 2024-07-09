@@ -3,10 +3,12 @@ from processing_fonction import load_data, analyze_missing_values, impute_missin
 
 def main():
     # Chemin du fichier (utilisez un chemin absolu)
+
     file_path = '..\\dataset\\rawData\\flight_dataset.csv'
 
     # Chargement des données
     df = load_data(file_path)
+
 
     # Analyse des valeurs manquantes
     analyze_missing_values(df)

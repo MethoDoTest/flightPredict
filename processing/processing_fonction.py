@@ -2,9 +2,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def load_data(file_path):
-    """Charge le fichier CSV dans un DataFrame Pandas."""
-    return pd.read_csv(file_path)
+def load_data(input_data = '..\\dataset\\rawData\\flight_dataset.csv', dataFrame=False):
+    """
+    Charge les données à partir d'un fichier CSV ou d'un DataFrame Pandas.
+
+    Parameters:
+    - input_data (str or pd.DataFrame): Le chemin du fichier CSV ou un DataFrame Pandas.
+    - dataFrame (bool): Indique si l'entrée est un DataFrame. Par défaut à False.
+
+    Returns:
+    - pd.DataFrame: Le DataFrame Pandas contenant les données.
+    """
+    if dataFrame:
+        if isinstance(input_data, pd.DataFrame):
+            return input_data
+        else:
+            raise ValueError("L'input doit être un pandas DataFrame quand dataFrame = True")
+    else:
+        return pd.read_csv(input_data)
 
 def analyze_missing_values(df):
     """Analyse et affiche les valeurs manquantes dans le DataFrame."""
