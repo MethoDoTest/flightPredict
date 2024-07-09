@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from unittest.mock import patch
 from django.test import Client
 
 
@@ -21,6 +22,7 @@ def test_travel_view_get(client, url):
     assert "form" in response.context
 
 
+@patch("travel.views.requests.post")
 def test_travel_view_post_valid(mock_post, client, url):
     """Test that the travel view handles valid POST request."""
     mock_post.return_value.status_code = 200
