@@ -1,29 +1,62 @@
 from codecarbon import EmissionsTracker
 
-# 1 Tracker pour mesurer les émissions pendant l'entraînement
-tracker = EmissionsTracker()
-tracker.start()
+def calculate_training_emissions(train_function):
+    """
+    Calcule les émissions de CO2 durant l'entraînement du modèle.
+    
+    Args:
+        train_function (callable): La fonction d'entraînement du modèle.
+    
+    Returns:
+        float: Les émissions de CO2 en kg équivalent.
+    """
+    tracker = EmissionsTracker()
+    tracker.start()
+    train_function()
+    emissions_train = tracker.stop()
+    print(f"Emissions durant l'entraînement: {emissions_train} kg CO2eq")
+    return emissions_train
 
-#Lancer la fonction d'entrainement du model exemple : train_model()
+def calculate_inference_emissions(inference_function):
+    """
+    Calcule les émissions de CO2 durant l'inférence du modèle.
+    
+    Args:
+        inference_function (callable): La fonction d'inférence du modèle.
+    
+    Returns:
+        float: Les émissions de CO2 en kg équivalent.
+    """
+    tracker = EmissionsTracker()
+    tracker.start()
+    inference_function()
+    emissions_infer = tracker.stop()
+    print(f"Emissions durant l'inférence: {emissions_infer} kg CO2eq")
+    return emissions_infer
 
-emissions_train = tracker.stop()
-print(f"Emissions durant l'entraînement: {emissions_train} kg CO2eq")
+def compare_emissions_to_car(emissions):
+    """
+    Compare les émissions de CO2 à des kilomètres parcourus en voiture.
+    
+    Args:
+        emissions (float): Les émissions de CO2 en kg équivalent.
+    
+    Returns:
+        float: Les kilomètres parcourus équivalents.
+    """
+    emissions_per_km = 0.12  # kg CO2 par kilomètre
+    km_equivalent = emissions / emissions_per_km
+    return km_equivalent
 
-# 2 Tracker pour mesurer les émissions pendant l'inférence
-tracker = EmissionsTracker()
-tracker.start()
-
-#Lancer la fonction d'inference du model exemple : train_model()
-
-emissions_infer = tracker.stop()
-print(f"Emissions durant l'inférence: {emissions_infer} kg CO2eq")
-
-# 3 Comparaison avec les émissions d'une voiture
-# En moyenne, une voiture émet environ 0.12 kg de CO2 par kilomètre parcouru
-emissions_per_km = 0.12
-
-km_train = emissions_train / emissions_per_km
-km_infer = emissions_infer / emissions_per_km
-
-print(f"Les émissions durant l'entraînement sont équivalentes à {km_train:.2f} km parcourus en voiture.")
-print(f"Les émissions durant l'inférence sont équivalentes à {km_infer:.2f} km parcourus en voiture.")
+def print_emission_comparison(emissions_train, emissions_infer):
+    """
+    Affiche la comparaison des émissions avec des kilomètres parcourus en voiture.
+    
+    Args:
+        emissions_train (float): Les émissions durant l'entraînement en kg CO2eq.
+        emissions_infer (float): Les émissions durant l'inférence en kg CO2eq.
+    """
+    km_train = compare_emissions_to_car(emissions_train)
+    km_infer = compare_emissions_to_car(emissions_infer)
+    print(f"Les émissions durant l'entraînement sont équivalentes à {km_train:.2f} km parcourus en voiture.")
+    print(f"Les émissions durant l'inférence sont équivalentes à {km_infer:.2f} km parcourus en voiture.")
