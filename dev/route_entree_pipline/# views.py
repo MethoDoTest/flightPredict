@@ -16,15 +16,16 @@ from processing.processing_fonction import (
     encode_categorical_variables,
     preprocess_data,
 )
-#Le code est à corriger
+#Le code est à corriger (data déjà en Dataframe)
 @api_view(['POST'])
 def data_pipeline(request):
     try:
         # Recevoir les données JSON du corps de la requête
-        data = request.data
+        #data = request.data
 
         # Convertir les données JSON en DataFrame
-        df = pd.DataFrame(data)
+        #df = pd.DataFrame(data)
+        df = request.data
         
         # Définir les colonnes catégorielles et la colonne cible
         colonnes_categorielles = ['Airline', 'Source', 'Destination']
