@@ -44,10 +44,9 @@ def data_pipeline(request):
         # Imputer les valeurs manquantes
         df = impute_missing_values(df)
         
-        return Response({
+         return Response({
             "message": "Données traitées avec succès",
-            "features": X.head().to_dict(),
-            "target": y.head().to_dict(),
+            "data": df.head().to_dict(),
             "missing_values_report": missing_values_report,
             "feature_report": feature_report
         }, status=status.HTTP_200_OK)
