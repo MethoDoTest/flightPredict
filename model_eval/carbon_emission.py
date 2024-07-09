@@ -1,5 +1,5 @@
 from codecarbon import EmissionsTracker
-
+ 
 def calculate_training_emissions(train_function):
     """
     Calcule les émissions de CO2 durant l'entraînement du modèle.
