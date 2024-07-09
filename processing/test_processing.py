@@ -24,12 +24,12 @@ def sampleData():
 
 @pytest.fixture
 def inputDataCsv():
-    filePathCsv = './dataset/rawData/flight_dataset.csv'   
+    filePathCsv = '..\\dataset\\rawData\\flight_dataset.csv'
     return filePathCsv
 
 @pytest.fixture
 def inputDataDf(sampleData):
-    filePathDf = pd.DataFrame(sampleData)  
+    filePathDf = pd.DataFrame(sampleData)
     return filePathDf
 
 # Tests
@@ -44,14 +44,14 @@ def testDataframeEmpty(inputDataCsv):
 
 def testColumnNames(inputDataCsv):
     df = load_data(inputDataCsv)
-    expected_columns = [
-        "Airline", "Source", "Destination", "Total_Stops", "Price", 
-        "Date", "Month", "Year", "Dep_hours", "Dep_min", 
+    expectedColumns = [
+        "Airline", "Source", "Destination", "Total_Stops", "Price",
+        "Date", "Month", "Year", "Dep_hours", "Dep_min",
         "Arrival_hours", "Arrival_min", "Duration_hours", "Duration_min"
     ]
-    assert list(df.columns) == expected_columns, "Les colonnes du DataFrame ne correspondent pas aux colonnes attendues"
+    assert list(df.columns) == expectedColumns, "Les colonnes du DataFrame ne correspondent pas aux colonnes attendues"
 
-def test_empty_dataframe(inputDataCsv):
+def testEmptyDataframe(inputDataCsv):
     df = load_data(inputDataCsv)
     assert not df.empty, "Le DataFrame est vide"
     assert len(df.columns) != 0, "Le DataFrame n'a pas de colonnes"
