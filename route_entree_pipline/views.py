@@ -5,13 +5,12 @@ import pandas as pd
 
 # Import des nouvelles fonctions de traitement depuis le fichier processing.py
 from processing.processing_fonction import (
-    analyze_missing_values,
-    impute_missing_values,
     generate_feature_report,
     create_new_features,
-    is_holiday,
     encode_categorical_variables,
     preprocess_data,
+    analyze_missing_values,
+    impute_missing_values,
 )
 
 @api_view(['POST'])
@@ -28,12 +27,6 @@ def data_pipeline(request):
         colonnes_categorielles = ['Airline', 'Source', 'Destination']
         colonne_target = 'Price'  # Remplacez par la colonne cible de votre dataset
 
-        # Analyser les valeurs manquantes
-        missing_values_report = analyze_missing_values(df)
-
-        # Imputer les valeurs manquantes
-        df = impute_missing_values(df)
-
         # Générer un rapport sur les fonctionnalités
         feature_report = generate_feature_report(df)
 
@@ -41,11 +34,17 @@ def data_pipeline(request):
         df = create_new_features(df)
 
         # Encoder les variables catégorielles
-        df = encode_categorical_variables(df, colonnes_categorielles)
+        df = encode_categorical_variables(df)
 
         # Prétraiter les données
-        X, y = preprocess_data(df, colonne_target)
+        df = preprocess_data(df)
+            return df
+        # Analyser les valeurs manquantes
+        missing_values_report = analyze_missing_values(df)
 
+        # Imputer les valeurs manquantes
+        df = impute_missing_values(df)
+        
         return Response({
             "message": "Données traitées avec succès",
             "features": X.head().to_dict(),
