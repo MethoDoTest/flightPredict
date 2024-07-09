@@ -1,5 +1,7 @@
 #requirement
-
+pandas~=2.2.2
+pytest~=8.2.2
+scikit-learn~=1.5.0
 Django==3.2.12
 djangorestframework==3.12.4
 django-cors-headers==3.7.0
@@ -10,4 +12,3 @@ mock==4.0.3
 pandas==1.4.2
 matplotlib==3.5.1
 seaborn==0.11.2
-pytest==7.1.2

@@ -10,16 +10,19 @@ X, y = iris.data, iris.target
 
 # Séparer les données en train et test
 from sklearn.model_selection import train_test_split
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Entraîner un modèle de base (RandomForestClassifier)
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
+
 # Fonction d'inférence du modèle
 def infer_model(model, X_test):
     predictions = model.predict(X_test)
     return predictions
+
 
 # Tracker pour mesurer les émissions pendant l'entraînement
 tracker = EmissionsTracker()
