@@ -4,7 +4,7 @@ from codecarbon import EmissionsTracker
 tracker = EmissionsTracker()
 tracker.start()
 
-# Lancer la fonction d'entrainement du model exemple : train_model()
+#Lancer la fonction d'entrainement du model exemple : train_model()
 
 emissions_train = tracker.stop()
 print(f"Emissions durant l'entraînement: {emissions_train} kg CO2eq")
@@ -13,7 +13,7 @@ print(f"Emissions durant l'entraînement: {emissions_train} kg CO2eq")
 tracker = EmissionsTracker()
 tracker.start()
 
-# Lancer la fonction d'inference du model exemple : train_model()
+#Lancer la fonction d'inference du model exemple : train_model()
 
 emissions_infer = tracker.stop()
 print(f"Emissions durant l'inférence: {emissions_infer} kg CO2eq")
