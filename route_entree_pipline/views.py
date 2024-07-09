@@ -25,7 +25,6 @@ def data_pipeline(request):
 
         # Définir les colonnes catégorielles et la colonne cible
         colonnes_categorielles = ['Airline', 'Source', 'Destination']
-        colonne_target = 'Price'  # Remplacez par la colonne cible de votre dataset
 
         # Générer un rapport sur les fonctionnalités
         feature_report = generate_feature_report(df)
