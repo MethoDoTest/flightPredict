@@ -1,6 +1,7 @@
 # test_metrics.py
 import pytest
 import numpy as np
+<<<<<<< HEAD:dev/metrics_capture/test_metrics.py
 from metrics import (
     mean_squared_error,
     r2_score,
@@ -8,6 +9,9 @@ from metrics import (
     mean_absolute_error,
 )
 
+=======
+from model_eval.metrics import mean_squared_error, r2_score, root_mean_squared_error, mean_absolute_error
+>>>>>>> 746263f98426ff925a909c42804d1dc626cc1874:tests/test_metrics.py
 
 class MockFlightPriceModel:
     def predict(self, X):

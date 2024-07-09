@@ -1,7 +1,7 @@
 # test_validation.py
 import pytest
 import pandas as pd
-from api.flight_pred.travel.validation import *
+from travel.validation import *
 
 
 def test_validate_airline():
