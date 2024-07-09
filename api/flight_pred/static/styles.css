@@ -12,7 +12,6 @@ body {
     color: #333;
 }
 
-
 .container {
     background-color: white;
     background-size: cover;
@@ -93,4 +92,23 @@ body {
     display: none;
     color: red;
     font-weight: bold;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    margin: 5px;
+}
+
+.file-label:hover {
+    background-color: #218838;
 }

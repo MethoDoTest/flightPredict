@@ -5,6 +5,8 @@ from .forms import TravelForm
 from django.shortcuts import render, redirect
 import subprocess
 import requests
+from django.core.files.storage import FileSystemStorage
+import os
 
 
 @csrf_exempt
@@ -75,14 +77,20 @@ def travel_view(request):
     )
 
 
-
-
 def retrain_model_view(request):
-    if request.method == 'POST':
-        subprocess.call(['python', 'travel/../../../train/train.py'])
+    if request.method == 'POST' and 'csv_file' in request.FILES:
+        csv_file = request.FILES['csv_file']
+        fs = FileSystemStorage()
+        filename = fs.save(csv_file.name, csv_file)
+        uploaded_file_url = fs.url(filename)
+        file_path = os.path.join(fs.location, filename)
+        subprocess.call(['python', 'travel/../../../train/train.py', file_path])
         return redirect('success_view')
     return render(request, "travel/retrain_model.html")
 
 def success_view(request):
     return render(request, "travel/success.html")
+
+
+
 
