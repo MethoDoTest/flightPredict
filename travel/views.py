@@ -1,3 +1,4 @@
+# views.py
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 import os
@@ -6,7 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 import subprocess
 from .forms import TravelForm
-import requests
+from .prediction_model import (
+    load_model,
+    predict_flight_price,
+)  # Importer votre modèle de prédiction
+
 
 @csrf_exempt
 def travel_view(request):
@@ -32,31 +37,29 @@ def travel_view(request):
                 duration_hours = form.cleaned_data["duration_hours"]
                 duration_min = form.cleaned_data["duration_min"]
 
-                api_url = "http://127.0.0.1:8000/travel/travel_view/"
-                data = {
-                    "departure": departure,
-                    "destination": destination,
-                    "airline": airline,
-                    "total_stops": total_stops,
-                    "date": date,
-                    "month": month,
-                    "year": year,
-                    "dep_hours": dep_hours,
-                    "dep_min": dep_min,
-                    "arrival_hours": arrival_hours,
-                    "arrival_min": arrival_min,
-                    "duration_hours": duration_hours,
-                    "duration_min": duration_min,
-                }
+                # Charger le modèle
+                model = load_model()
+
+                # Appel de la fonction de prédiction avec les données du formulaire
                 try:
-                    response = requests.post(api_url, json=data)
-                    response.raise_for_status()
-                    if response.status_code == 200:
-                        result = response.json().get("result", "Aucun résultat trouvé")
-                    else:
-                        result = "L'appel à l'API n'a pas réussi comme prévu."
-                except requests.RequestException as e:
-                    errors = f"Erreur lors de l'appel à l'API: {e}"
+                    result = predict_flight_price(
+                        model,
+                        departure,
+                        destination,
+                        airline,
+                        total_stops,
+                        date,
+                        month,
+                        year,
+                        dep_hours,
+                        dep_min,
+                        arrival_hours,
+                        arrival_min,
+                        duration_hours,
+                        duration_min,
+                    )
+                except Exception as e:
+                    errors = f"Erreur lors de la prédiction: {e}"
             else:
                 errors = form.errors
 
@@ -77,15 +80,16 @@ def travel_view(request):
 
 
 def retrain_model_view(request):
-    if request.method == 'POST' and 'csv_file' in request.FILES:
-        csv_file = request.FILES['csv_file']
+    if request.method == "POST" and "csv_file" in request.FILES:
+        csv_file = request.FILES["csv_file"]
         fs = FileSystemStorage()
         filename = fs.save(csv_file.name, csv_file)
         uploaded_file_url = fs.url(filename)
         file_path = os.path.join(fs.location, filename)
-        subprocess.call(['python', 'travel/../../../train/train.py', file_path])
-        return redirect('success_view')
+        subprocess.call(["python", "travel/../../../train/train.py", file_path])
+        return redirect("success_view")
     return render(request, "travel/retrain_model.html")
+
 
 def success_view(request):
     return render(request, "travel/success.html")

@@ -34,7 +34,7 @@
 <body>
     <div class="container">
         <h1>Entrez votre aéroport de départ ainsi que celui de destination:</h1>
-        <form method="post">
+        <form method="post" action="{% url 'travel_view' %}">
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group form-group-half">
@@ -150,6 +150,17 @@
         {% if result %}
         <p id="result">{{ result }}</p>
         {% endif %}
+        {% if errors %}
+        <div id="errors">
+            <p>Errors:</p>
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
     </div>
 </body>
 
