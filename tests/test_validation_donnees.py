@@ -1,6 +1,8 @@
 import pytest
 import pandas as pd
-from validation_data.validate_data_types import valider_types_donnees, valider_qualite_donnees, pipeline_validation_donnees
+from validation_data.validate_data_types import valider_types_donnees, valider_qualite_donnees, \
+    pipeline_validation_donnees
+
 
 @pytest.fixture
 def df_valid():
@@ -13,13 +15,14 @@ def df_valid():
         'Date': [24, 1, 9],
         'Month': [3, 5, 6],
         'Year': [2019, 2019, 2019],
-        'Dep_hours': [22, 5, None],
+        'Dep_hours': [22, 5, 10],
         'Dep_min': [20, 50, 25],
         'Arrival_hours': [1, 13, 4],
         'Arrival_min': [10, 15, 25],
         'Duration_hours': [2, 7, 19],
         'Duration_min': [50, 25, 0]
     })
+
 
 @pytest.fixture
 def types_attendus():
@@ -40,10 +43,13 @@ def types_attendus():
         'Duration_min': 'int64',
     }
 
+
 def test_valider_types_donnees(df_valid, types_attendus):
     resultats = valider_types_donnees(df_valid, types_attendus)
     for colonne, resultat in resultats.items():
-        assert resultat['valid'], f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}"
+        assert resultat[
+            'valid'], f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}"
+
 
 def test_valider_qualite_donnees(df_valid):
     resultats = valider_qualite_donnees(df_valid)
@@ -56,10 +62,12 @@ def test_valider_qualite_donnees(df_valid):
     for colonne, valeur in resultats['valeurs_hors_plage'].items():
         assert valeur == 0, f"Out of range values found in column {colonne}"
 
+
 def test_pipeline_validation_donnees(df_valid, types_attendus):
     resultats = pipeline_validation_donnees(df_valid, types_attendus)
     for colonne, resultat in resultats['validation_types'].items():
-        assert resultat['valid'], f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}"
+        assert resultat[
+            'valid'], f"Type mismatch in column {colonne}: expected {resultat['expected']}, got {resultat['actual']}"
 
     for colonne, valeur in resultats['qualite_donnees']['valeurs_manquantes'].items():
         assert valeur == 0, f"Missing values found in column {colonne}"

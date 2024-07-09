@@ -1,6 +1,7 @@
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression, RANSACRegressor
 from sklearn.model_selection import GridSearchCV
+import joblib
 
 linreg = LinearRegression()
 ranfor = RandomForestRegressor()
@@ -42,7 +43,12 @@ def train_model(data_x, data_y, model="linreg"):
                              return_train_score=False)
         gs_cv.fit(data_x, data_y)
         model = gs_cv.best_estimator_
+        filename = 'model.sav'
+        joblib.dump(model, filename)
+
     else:
         model.fit(data_x, data_y)
+        filename = 'model.sav'
+        joblib.dump(model, filename)
 
     return model

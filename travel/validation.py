@@ -74,4 +74,4 @@ def validate_row(row):
 
 def validate_table(df):
     """Valide tout le tableau et s'assure qu'il y a bien 14 colonnes."""
-    return df.shape[1] == 14 and df.apply(validate_row, axis=1).all()
+    return True if (df.shape[1] == 14 and df.apply(validate_row, axis=1).all()) else False

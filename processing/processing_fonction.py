@@ -1,8 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.model_selection import train_test_split
 
-def load_data(input_data = '..\\dataset\\rawData\\flight_dataset.csv', dataFrame=False):
+
+def load_data(input_data='dataset/flight_dataset.csv', dataFrame=False):
     """
     Charge les données à partir d'un fichier CSV ou d'un DataFrame Pandas.
 
@@ -21,6 +23,28 @@ def load_data(input_data = '..\\dataset\\rawData\\flight_dataset.csv', dataFrame
     else:
         return pd.read_csv(input_data)
 
+
+def split_data(data, test_size=0.25, seed=13):
+    """
+    Function to split dataframe into training and test
+    -------------
+    Inputs
+    -------------
+    @params data pandas.DataFrame: dataset, in pandas dataframe format
+    @params test_size float: proportion for the train-test split
+    @params seed int: random seed
+
+    -------------
+    Return
+    -------------
+    X_train, X_test, Y_train, Y_test Pandas DataFrame and Series objects
+    """
+    Y = data['Price']
+    X = data.drop('Price', axis=1)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=test_size, random_state=seed)
+    return X_train, X_test, Y_train, Y_test
+
+
 def analyze_missing_values(df):
     """Analyse et affiche les valeurs manquantes dans le DataFrame."""
     missing_values = df.isnull().sum()
@@ -35,6 +59,7 @@ def analyze_missing_values(df):
     else:
         print("Aucune valeur manquante détectée.")
 
+
 def impute_missing_values(df):
     """Impute les valeurs manquantes avec la moyenne des colonnes."""
     missing_values = df.isnull().sum()
@@ -47,11 +72,13 @@ def impute_missing_values(df):
         print("Aucune valeur manquante à imputer.")
     return df
 
+
 def generate_feature_report(df):
     """Génère un rapport sur les nouvelles caractéristiques potentielles."""
     print("Analyse des caractéristiques existantes pour le feature engineering :")
     df['Total_Duration_Minutes'] = df['Duration_hours'] * 60 + df['Duration_min']
     print("Nouvelle caractéristique 'Total_Duration_Minutes' créée.")
+
 
 def create_new_features(df):
     """Crée de nouvelles caractéristiques basées sur les données existantes."""
@@ -64,6 +91,7 @@ def create_new_features(df):
     print("Nouvelles caractéristiques créées : 'Flight_Date', 'Day_of_Week', 'Season' et 'Is_Holiday'")
     return df
 
+
 def is_holiday(date):
     """Détermine si une date donnée est une période de vacances."""
     holidays = [
@@ -73,17 +101,20 @@ def is_holiday(date):
     ]
     return any(start <= date <= end for start, end in holidays)
 
+
 def encode_categorical_variables(df):
     """Encode les variables catégorielles."""
     categorical_cols = ['Airline', 'Source', 'Destination', 'Day_of_Week', 'Season']
     df_encoded = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
     return df_encoded
 
+
 def preprocess_data(df):
     """Prépare les données pour l'entraînement."""
     df = create_new_features(df)  # Créer les nouvelles caractéristiques
     df = encode_categorical_variables(df)  # Encoder les variables catégorielles
     df = impute_missing_values(df)  # Imputer les valeurs manquantes
+    return df
 
     # X = df.drop(columns=['Price', 'Flight_Date', 'Is_Holiday'])
     # y = df['Price']

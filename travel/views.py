@@ -8,6 +8,7 @@ import subprocess
 from .forms import TravelForm
 import requests
 
+
 @csrf_exempt
 def travel_view(request):
     result = None
@@ -86,6 +87,7 @@ def retrain_model_view(request):
         subprocess.call(['python', 'travel/../../../train/train.py', file_path])
         return redirect('success_view')
     return render(request, "travel/retrain_model.html")
+
 
 def success_view(request):
     return render(request, "travel/success.html")

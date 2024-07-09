@@ -2,8 +2,8 @@ import pytest
 import pandas as pd
 from processing.processing_fonction import (load_data)
 
-@pytest.fixture
 
+@pytest.fixture
 def sampleData():
     data = {
         "Airline": ["IndiGo", "Air India"],
@@ -23,15 +23,18 @@ def sampleData():
     }
     return pd.DataFrame(data)
 
+
 @pytest.fixture
 def inputDataCsv():
-    filePathCsv = '..\\dataset\\rawData\\flight_dataset.csv'
+    filePathCsv = 'dataset/flight_dataset.csv'
     return filePathCsv
+
 
 @pytest.fixture
 def inputDataDf(sampleData):
     filePathDf = pd.DataFrame(sampleData)
     return filePathDf
+
 
 # Tests
 
@@ -39,18 +42,31 @@ def testLoadDataFromDataframe(inputDataDf):
     df = load_data(inputDataDf, dataFrame=True)
     assert not df.empty, "Le DataFrame est vide"
 
+
 def testDataframeEmpty(inputDataCsv):
     df = load_data(inputDataCsv)
     assert isinstance(df, pd.DataFrame), "Les données chargées ne sont pas un DataFrame"
 
+
 def testColumnNames(inputDataCsv):
     df = load_data(inputDataCsv)
-    expectedColumns = [
-        "Airline", "Source", "Destination", "Total_Stops", "Price",
-        "Date", "Month", "Year", "Dep_hours", "Dep_min",
-        "Arrival_hours", "Arrival_min", "Duration_hours", "Duration_min"
-    ]
+    expectedColumns = ["Airline",
+                       "Source",
+                       "Destination",
+                       "Total_Stops",
+                       "Price",
+                       "Date",
+                       "Month",
+                       "Year",
+                       "Dep_hours",
+                       "Dep_min",
+                       "Arrival_hours",
+                       "Arrival_min",
+                       "Duration_hours",
+                       "Duration_min"
+                       ]
     assert list(df.columns) == expectedColumns, "Les colonnes du DataFrame ne correspondent pas aux colonnes attendues"
+
 
 def testEmptyDataframe(inputDataCsv):
     df = load_data(inputDataCsv)
