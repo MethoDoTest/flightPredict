@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from validate_data_types import valider_types_donnees, valider_qualite_donnees, pipeline_validation_donnees
+from validation_data.validate_data_types import valider_types_donnees, valider_qualite_donnees, pipeline_validation_donnees
 
 @pytest.fixture
 def df_valid():

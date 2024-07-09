@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pytest
 
-from EDA import (load_data, show_basic_info, plot_histogram, plot_boxplot,
+from processing.EDA import (load_data, show_basic_info, plot_histogram, plot_boxplot,
                  analyze_missing_values, generate_feature_report,
                  plot_correlation_matrix, create_new_features, plot_price_vs_date_features)
 
