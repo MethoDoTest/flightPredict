@@ -1,0 +1,21 @@
+Architectures sélectionnées :
+
+-> Robust Regression (RANSAC)
+-> RandomForest (Regression)
+-> Linear Regression
+
+Le dataset étant très petit, aussi bien en terme de features que de volumétrie d'entrées, nous partirons sur des architectures simples.
+
+Toutes les architectures plus complexes, nécessitant en général plus de données ont été volontairement écartées.
+
+Les trois architectures sont implémentées sur le Framework choisi (sklearn).
+
+RANSAC offre une certaine robustesse aux outliers, mais pourrait être freiné par le peu de données présente, si les résultats ne sont pas concluants, il faudra probablement l'écarter par manque de données.
+
+Ces trois modèles peuvent offrir de belles performances sur ce jeu de données, et sont assez légers, ce qui permettra un entraînement rapide, et un coût d'inférence maitrisé.
+
+Lors de data drift, il faudra alors que peu de temps pour les mettre à jour en les réentraînant. C'est un atout pour le client.
+
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RANSACRegressor.html
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html

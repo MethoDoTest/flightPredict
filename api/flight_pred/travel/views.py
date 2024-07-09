@@ -1,13 +1,12 @@
-# views.py
 from django.http import JsonResponse, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
-from .forms import TravelForm
-from django.shortcuts import render, redirect
-import subprocess
-import requests
 from django.core.files.storage import FileSystemStorage
 import os
-
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
+import subprocess
+from .forms import TravelForm
+import requests
 
 @csrf_exempt
 def travel_view(request):
@@ -90,7 +89,3 @@ def retrain_model_view(request):
 
 def success_view(request):
     return render(request, "travel/success.html")
-
-
-
-
