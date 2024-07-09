@@ -1,7 +1,7 @@
 # test_metrics_response_time.py
 import pytest
 import numpy as np
-from metrics_reponse_time import (
+from model_eval.metrics_reponse_time import (
     timed_mean_squared_error,
     timed_r2_score,
     timed_root_mean_squared_error,
