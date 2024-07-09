@@ -1,5 +1,5 @@
 import pandas as pd
-from processing_fonction import load_data, analyze_missing_values, impute_missing_values, generate_feature_report, create_new_features, preprocess_data
+from processing.processing_fonction import load_data, analyze_missing_values, impute_missing_values, generate_feature_report, create_new_features, preprocess_data
 
 def main():
     # Chemin du fichier (utilisez un chemin absolu)
