@@ -3,6 +3,7 @@ import pandas as pd
 from processing_fonction import (load_data)
 
 @pytest.fixture
+
 def sampleData():
     data = {
         "Airline": ["IndiGo", "Air India"],

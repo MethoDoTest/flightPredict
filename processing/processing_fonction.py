@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
 def load_data(input_data = '..\\dataset\\rawData\\flight_dataset.csv', dataFrame=False):
     """
     Charge les données à partir d'un fichier CSV ou d'un DataFrame Pandas.

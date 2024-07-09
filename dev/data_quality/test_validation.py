@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def validate_airline(airline):
     if isinstance(airline, str) and airline.strip() != "":
         return (True, "")
